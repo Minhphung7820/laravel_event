@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\EventDemo;
+use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $data = [
-        'email' => 'minhphung485@gmail.com',
-        'content' => "CC ffagag"
-    ];
-    event(new EventDemo($data));
+    dd(1);
 });

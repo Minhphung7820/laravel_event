@@ -4,8 +4,11 @@ namespace App\Listeners;
 
 use App\Events\EventDemo;
 use App\Jobs\JobDemo;
+use App\Mail\MailDemo;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class ListenerDemo
 {
@@ -27,13 +30,12 @@ class ListenerDemo
      */
     public function handle(EventDemo $event)
     {
-        $data = ["âa", "bb", "cc", "dd"];
-        for ($i = 0; $i < count($data); $i++) {
-            $rs = [
-                'email' => "minhphung485@gmail.com",
-                "content" => $data[$i]
-            ];
-            JobDemo::dispatch($rs);
+        try {
+            Mail::to($event->data['email'])->send(new MailDemo($event->data['content']));
+            Log::info("Đã gửi nha bạn !");
+        } catch (\Exception $e) {
+            // Ghi log lỗi
+            Log::error("Lỗi rồi phujg ơi");
         }
     }
 }

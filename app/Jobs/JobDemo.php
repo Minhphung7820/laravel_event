@@ -35,10 +35,5 @@ class JobDemo implements ShouldQueue
      */
     public function handle()
     {
-        try {
-            Mail::to($this->data['email'])->send(new MailDemo($this->data['content']));
-        } catch (\Exception $th) {
-            throw new Exception($th->getMessage());
-        }
     }
 }
